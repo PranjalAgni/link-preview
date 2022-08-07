@@ -5,7 +5,6 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import isUrl from "is-url";
-import useSWR from "swr";
 
 const Home: NextPage = () => {
   const [link, setLink] = useState<string>("");
