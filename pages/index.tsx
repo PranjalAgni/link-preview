@@ -9,6 +9,13 @@ import isUrl from "is-url";
 const Home: NextPage = () => {
   const [link, setLink] = useState<string>("");
   const [isValidLink, setValidLink] = useState(false);
+  const [data, setData] = useState({
+    title: "",
+    description: "",
+    image: "",
+    siteName: ""
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setValidLink(isUrl(link));
@@ -21,15 +28,18 @@ const Home: NextPage = () => {
 
   const fetchLinkPreview = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     try {
       const BASE_API_URL = "http://localhost:4001/api";
       const API_URL = `${BASE_API_URL}/preview?url=${link}`;
       const response = await fetch(API_URL);
       const data = await response.json();
       console.log("Data ", data);
+      setData(data);
     } catch (error) {
       console.error("Error: ", error);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -75,42 +85,55 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center">
-          <div className="max-w-sm rounded overflow-hidden shadow-lg border-4 border-indigo-500/100">
-            <Image
-              className="w-full"
-              src="https://v1.tailwindcss.com/img/card-top.jpg"
-              alt="Sunset in the mountains"
-              width="500"
-              height="200"
-            />
+        {isLoading ? (
+          <h3>Loading...</h3>
+        ) : (
+          data.title && (
+            <a href={link}>
+              <div className="flex justify-center items-center px-5 py-6">
+                <div className="max-w-sm rounded overflow-hidden shadow-lg border-4 border-indigo-500/100">
+                  <Image
+                    className="w-full"
+                    src={
+                      data.image ||
+                      "https://v1.tailwindcss.com/img/card-top.jpg"
+                    }
+                    alt="Sunset in the mountains"
+                    width="600"
+                    height="600"
+                  />
 
-            <div className="px-6 py-4 content-center">
-              <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-              <p className="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                exercitationem praesentium nihil.
-              </p>
-            </div>
-          </div>
-        </div>
+                  <h3 className="px-8">{data.siteName}</h3>
+                  <div className="px-6 py-4 content-center">
+                    <div className="font-bold text-xl mb-2">{data?.title}</div>
+                    <p className="text-gray-700 text-base">
+                      {data.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          )
+        )}
 
         <footer className="py-8 px-0 border-t border-solid border-[#d4d4d4]">
           <div className="flex justify-center items-center w-full">
             <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+              href="https://twitter.com/PranjalAgnihot8"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Powered by{" "}
-              <span className={styles.logo}>
+              <span>
                 <Image
-                  src="/vercel.svg"
-                  alt="Vercel Logo"
-                  width={72}
-                  height={16}
+                  src="/twitter.svg"
+                  alt="Twitter Logo"
+                  width={80}
+                  height={30}
                 />
+              </span>
+              <span>
+                {"built by "}
+                <span className="text-[#569cd6]">@beingPranjal</span>
               </span>
             </a>
           </div>
