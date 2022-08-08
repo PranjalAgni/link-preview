@@ -123,18 +123,22 @@ const Home: NextPage = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>
-                <Image
-                  src="/twitter.svg"
-                  alt="Twitter Logo"
-                  width={80}
-                  height={30}
-                />
-              </span>
-              <span>
-                {"built by "}
-                <span className="text-[#569cd6]">@beingPranjal</span>
-              </span>
+              <div>
+                <span className="relative">
+                  <Image
+                    src="/twitter.svg"
+                    alt="Twitter Logo"
+                    width={25}
+                    height={25}
+                  />
+                </span>
+                <p className="float-right">
+                  <span className="pl-1">
+                    {"built by "}
+                    <span className="text-[#569cd6]">@beingPranjal</span>
+                  </span>
+                </p>
+              </div>
             </a>
           </div>
         </footer>
