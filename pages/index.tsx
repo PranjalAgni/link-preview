@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import isUrl from "is-url";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const Home: NextPage = () => {
   const [link, setLink] = useState<string>("");
@@ -84,36 +85,32 @@ const Home: NextPage = () => {
             </button>
           </div>
         </div>
+        <div className="flex flex-col justify-center items-center">
+          <BeatLoader color="#569CD6" loading={isLoading} />
+        </div>
 
-        {isLoading ? (
-          <h3>Loading...</h3>
-        ) : (
-          data.title && (
-            <a href={link}>
-              <div className="flex justify-center items-center px-5 py-6">
-                <div className="max-w-sm rounded overflow-hidden shadow-lg border-4 border-indigo-500/100">
-                  <Image
-                    className="w-full"
-                    src={
-                      data.image ||
-                      "https://v1.tailwindcss.com/img/card-top.jpg"
-                    }
-                    alt="Sunset in the mountains"
-                    width="600"
-                    height="600"
-                  />
+        {data.title && (
+          <a href={link}>
+            <div className="flex justify-center items-center px-5 py-6">
+              <div className="max-w-sm rounded overflow-hidden shadow-lg border-4 border-indigo-500/100">
+                <Image
+                  className="w-full"
+                  src={
+                    data.image || "https://v1.tailwindcss.com/img/card-top.jpg"
+                  }
+                  alt="Sunset in the mountains"
+                  width="600"
+                  height="600"
+                />
 
-                  <h3 className="px-8">{data.siteName}</h3>
-                  <div className="px-6 py-4 content-center">
-                    <div className="font-bold text-xl mb-2">{data?.title}</div>
-                    <p className="text-gray-700 text-base">
-                      {data.description}
-                    </p>
-                  </div>
+                <h3 className="px-8">{data.siteName}</h3>
+                <div className="px-6 py-4 content-center">
+                  <div className="font-bold text-xl mb-2">{data?.title}</div>
+                  <p className="text-gray-700 text-base">{data.description}</p>
                 </div>
               </div>
-            </a>
-          )
+            </div>
+          </a>
         )}
 
         <footer className="py-8 px-0 border-t border-solid border-[#d4d4d4]">
