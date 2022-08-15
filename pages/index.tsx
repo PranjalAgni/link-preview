@@ -38,7 +38,7 @@ const Home: NextPage = () => {
       console.log("Data ", data);
       setData(data);
     } catch (error) {
-      console.error("Error: ", error);
+      console.error("Error stack: ", error.stack);
     }
     setIsLoading(false);
   };
