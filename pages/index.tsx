@@ -8,6 +8,9 @@ import isUrl from "is-url";
 import BeatLoader from "react-spinners/BeatLoader";
 
 const Home: NextPage = () => {
+  
+
+  const BASE_API_URL = "http://localhost:4001/api";
   const [link, setLink] = useState<string>("");
   const [isValidLink, setValidLink] = useState(false);
   const [data, setData] = useState({
@@ -31,7 +34,6 @@ const Home: NextPage = () => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      const BASE_API_URL = "http://localhost:4001/api";
       const API_URL = `${BASE_API_URL}/preview?url=${link}`;
       const response = await fetch(API_URL);
       const data = await response.json();
