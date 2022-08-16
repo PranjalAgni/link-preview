@@ -7,10 +7,9 @@ import styles from "../styles/Home.module.css";
 import isUrl from "is-url";
 import BeatLoader from "react-spinners/BeatLoader";
 
-const Home: NextPage = () => {
-  
+const BASE_API_URL = "http://localhost:4001/api";
 
-  const BASE_API_URL = "http://localhost:4001/api";
+const Home: NextPage = () => {
   const [link, setLink] = useState<string>("");
   const [isValidLink, setValidLink] = useState(false);
   const [data, setData] = useState({
@@ -40,7 +39,7 @@ const Home: NextPage = () => {
       console.log("Data ", data);
       setData(data);
     } catch (error) {
-      console.error("Error stack: ", error.stack);
+      console.error("Error stack: ", (error as Error).stack);
     }
     setIsLoading(false);
   };
